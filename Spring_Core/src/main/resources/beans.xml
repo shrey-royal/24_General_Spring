@@ -1,0 +1,14 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       
+	<bean id="light" class="com.royal.core.ioc.Light"/>
+	<bean id="switch1" class="com.royal.core.ioc.Switch">
+		<constructor-arg ref="light"/>
+	</bean>
+	<bean id="employee" class="com.royal.core.ioc.Employee">
+		<constructor-arg name="id" value="101"/>
+		<constructor-arg name="name" value="Meet"/>
+		<constructor-arg name="salary" value="340000"/>
+	</bean>
+</beans>

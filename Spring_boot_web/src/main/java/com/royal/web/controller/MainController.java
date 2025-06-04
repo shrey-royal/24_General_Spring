@@ -1,10 +1,12 @@
 package com.royal.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import com.royal.web.entity.User;
 
 @Controller
 public class MainController {
@@ -20,9 +22,11 @@ public class MainController {
 	}
 	
 	@PostMapping("/send")
-	public String formdata(@RequestParam("name") String name1, @RequestParam String email) {
-		System.out.println("Name: " + name1);
-		System.out.println("Email: " + email);
-		return "home";
+	public String formdata(@ModelAttribute User user, Model model) {
+		model.addAttribute("name", user.getName());
+		model.addAttribute("email", user.getEmail());
+		System.out.println(user);
+		
+		return "showUser";
 	}
 }

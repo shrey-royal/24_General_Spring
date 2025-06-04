@@ -1,10 +1,10 @@
 package com.royal.web.entity;
 
-import lombok.*;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class User {
+	private int id;
 	private String name;
 	private String email;
 }

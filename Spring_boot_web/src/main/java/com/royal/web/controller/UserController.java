@@ -19,7 +19,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/")
+	@GetMapping
 	public String listUsers(Model model) {
 		model.addAttribute("users", userService.getAllUsers());
 		return "users";
@@ -40,7 +40,13 @@ public class UserController {
 	@GetMapping("/edit/{id}")
 	public String editUser(@PathVariable int id, Model model) {
 		model.addAttribute("user", userService.getUserById(id));
-		return "user_form";
+		return "edit_user_form";
+	}
+	
+	@PostMapping("/update")
+	public String updateUser(@ModelAttribute User user) {
+		userService.updateUser(user);
+		return "redirect:/users";
 	}
 	
 	@GetMapping("/delete/{id}")

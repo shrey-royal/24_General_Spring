@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>404 - Not Found</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center mt-5">
+    <h1 class="display-4 text-danger">404</h1>
+    <p class="lead">Oops! The page you’re looking for doesn’t exist.</p>
+    <p th:text="${message}" class="text-muted"></p>
+    <a th:href="@{/products}" class="btn btn-outline-primary mt-3">Go Home</a>
+</div>
+</body>
+</html>

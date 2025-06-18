@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trains</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Train List</h2>
+        <a href="/trains/new" class="btn btn-primary">Add Train</a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="train : ${trains}">
+            <td th:text="${train.id}"></td>
+            <td th:text="${train.name}"></td>
+            <td th:text="${train.origin}"></td>
+            <td th:text="${train.destination}"></td>
+            <td>
+                <a th:href="@{/trains/edit/{id}(id=${train.id})}" class="btn btn-sm btn-warning me-2">Edit</a>
+                <a th:href="@{/trains/delete/{id}(id=${train.id})}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

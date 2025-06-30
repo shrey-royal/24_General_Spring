@@ -40,4 +40,8 @@ public class AeroplaneService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    public List<Aeroplane> findByStatus(AeroplaneStatus status) {
+        return repository.findByStatus(status);
+    }
 }

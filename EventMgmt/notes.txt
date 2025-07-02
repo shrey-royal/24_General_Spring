@@ -1,0 +1,22 @@
+1. user table
+id - int
+username - varchar
+password - varchar
+email - varchar
+role - ENUM('USER', 'ADMIN')
+
+2. events
+id - int
+title - varchar
+description - text
+event_data - datetime
+total_seats - int
+available_seats - int
+
+3. bookings
+id - int
+user_id - int
+event_id - int
+booking_time - datetime
+user_id - ref
+event_id - ref

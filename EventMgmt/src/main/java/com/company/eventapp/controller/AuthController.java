@@ -14,9 +14,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
-public class UserController {
+public class AuthController {
 	private final UserService service;
 	
 	@PostMapping("/register")

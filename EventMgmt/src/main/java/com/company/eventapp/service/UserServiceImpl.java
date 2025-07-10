@@ -1,5 +1,6 @@
 package com.company.eventapp.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -34,5 +35,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean existsByEmail(String email) {
 		return repository.existsByEmail(email);
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		return repository.findAll();
 	}
 }

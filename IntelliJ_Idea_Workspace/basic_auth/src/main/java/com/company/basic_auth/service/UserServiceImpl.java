@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDTO saveUser(UserRequestDTO userDTO) {
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         return user;
     }
 

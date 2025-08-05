@@ -3,21 +3,25 @@ package com.royal.auth.controller;
 import com.royal.auth.dto.UserDTO;
 import com.royal.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
-@RequestMapping("/api")
-@RequiredArgsConstructor
+@RequestMapping("/auth")
+//@RequiredArgsConstructor
 public class AuthController {
+    @Autowired
     private UserService service;
 
-    @PostMapping
+    @PostMapping("/login")
     public String authenticate(@RequestBody UserDTO userDTO) {
         return service.authenticate(userDTO);
     }
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello, Authenticated User!";
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(service.register(userDTO));
     }
 }

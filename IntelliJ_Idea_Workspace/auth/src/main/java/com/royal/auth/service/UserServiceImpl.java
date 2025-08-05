@@ -7,6 +7,9 @@ import com.royal.auth.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -23,5 +26,40 @@ public class UserServiceImpl implements UserService {
         }
 
         return jwtUtil.generateToken(user.getUsername());
+    }
+
+    @Override
+    public String register(UserDTO userDTO) {
+        userRepository.save(User.builder()
+                .username(userDTO.getUsername())
+                .password(userDTO.getPassword())
+                .build()
+        );
+        return "User registered successfully!";
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll()
+                        .stream()
+                        .map(this::mapToDTO)
+                        .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDTO getUserById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    private UserDTO mapToDTO(User user) {
+        return UserDTO.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .build();
     }
 }

@@ -5,6 +5,7 @@ import com.royal.auth.entity.User;
 import com.royal.auth.repository.UserRepository;
 import com.royal.auth.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,15 +14,16 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
-    private JwtUtil jwtUtil;
+    private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public String authenticate(UserDTO userDTO) {
         User user = userRepository.findByUsername(userDTO.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found!"));
 
-        if (!user.getPassword().equals(userDTO.getPassword())) {
+        if (!passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
 
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
     public String register(UserDTO userDTO) {
         userRepository.save(User.builder()
                 .username(userDTO.getUsername())
-                .password(userDTO.getPassword())
+                .password(passwordEncoder.encode(userDTO.getPassword()))
                 .build()
         );
         return "User registered successfully!";
@@ -59,7 +61,7 @@ public class UserServiceImpl implements UserService {
     private UserDTO mapToDTO(User user) {
         return UserDTO.builder()
                 .username(user.getUsername())
-                .password(user.getPassword())
+                .password(passwordEncoder.encode(user.getPassword()))
                 .build();
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
-    private UserService service;
+    private final UserService service;
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {

@@ -2,7 +2,6 @@ package com.royal.auth.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,7 +23,6 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/users/**").authenticated()
-                .anyRequest().denyAll()
         )
                 .csrf(token -> token.disable())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

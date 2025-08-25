@@ -2,6 +2,7 @@ package com.ecom.productservice.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "products")
 public class Product {
     @Id
@@ -17,5 +19,7 @@ public class Product {
 
     private String name;
     private Double price;
-    private String image_url;
+    private String category;
+    private Integer stock;
+    private String imageUrl;
 }

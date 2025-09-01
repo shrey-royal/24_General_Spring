@@ -1,12 +1,38 @@
 package com.ecom.productservice.service;
 
+import com.cloudinary.Cloudinary;
 import com.ecom.productservice.entity.Product;
+import com.ecom.productservice.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
-public interface ProductService {
-    Product save(Product product);
-    List<Product> findAllProducts();
-    Product findProductById(Long id);
-    void deleteById(Long id);
+@Service
+@RequiredArgsConstructor
+public class ProductService {
+    private final ProductRepository repo;
+    private final Cloudinary cloudinary;
+
+    public Product save(Product product, MultipartFile image) throws Exception {
+        if(image != null && !image.isEmpty()) {
+            Map<?, ?> res = cloudinary.uploader().upload(image.getBytes(), Map.of());
+            product.setImageUrl((String) res.get("secure_url"));
+        }
+        return repo.save(product);
+    }
+
+    public List<Product> findAll() {
+        return repo.findAll();
+    }
+
+    public Product findById(Long id) {
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Product not found!"));
+    }
+
+    public void deleteById(Long id) {
+        repo.deleteById(id);
+    }
 }
